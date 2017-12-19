@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Talking Face</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet" />
+  <script src="http://twemoji.maxcdn.com/2/twemoji.min.js?2.4"></script>
+<style id="jsbin-css">
+* {
+  text-align: center;
+  margin: 0px; 
+}
+@media screen and (max-width: 360px) {
+  h1 {
+    font-size: 70px;
+  }
+  .emoji {
+    width: 70px;
+  }
+  h2 {
+    font-size: 40px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 361px) {
+  .emoji {
+    width: 120px;
+  }
+  h1 {
+    font-size: 120px;
+  }
+  h2 {
+    font-size: 60px;
+  }
+  h3 {
+    font-size: 30px;
+  }
+}
+h2, h3 {
+  font-family: 'Gloria Hallelujah', cursive;
+}
+</style>
+</head>
+<body>
+  <h1><img class="emoji" id="emojiIcon" /></h1>
+  <h3 id="previousText"></h3>
+  <h2 id="text"></h2>
+<script id="jsbin-javascript">
+const delay = 200
+
+const message =  prompt("Enter a statement","Some dummies won\'t know what to write so i would help them....");
+
+  
+
+const emojiMap = {
+  "😮": ["o", "e"],
+  "😐": ["b", "p", "m"],
+  "🙂": ["c", "g", "j", "k", "n", "r", "s", "t", "v", "x", "z", "sh"],
+  "😲": ["d", "l", "th"],
+  "😯": ["q", "u", "w", "y"],
+  "😀": ["a", "i"],
+  "😦": []
+}
+const defaultEmoji = "😐"
+const emojiCode = {}
+const emojis = Object.keys(emojiMap);
+const start = Date.now()
+emojis.forEach(emoji => emojiCode[emoji] = twemoji.parse(emoji,{
+  folder: 'svg',
+  ext: '.svg'
+}).slice('<img class="emoji" draggable="false" alt="😐" src="'.length, -3))
+console.log(emojiCode)
+function resolveCharacter(index) {
+  const character = message.toLowerCase()[index]
+  const previousDouble = message.toLowerCase().substr(index - 1, index + 1)
+  const nextDouble = message.toLowerCase().substr(index, index + 2)
+  return emojis.find(e => emojiMap[e].indexOf(previousDouble) !== -1) || emojis.find(e => emojiMap[e].indexOf(nextDouble) !== -1) || emojis.find(e => emojiMap[e].indexOf(character) !== -1)
+}
+setInterval(_=>{
+  const index = Math.floor(( Date.now() - start )  / delay)%(message.length+1)
+  emojiIcon.src = emojiCode[resolveCharacter(index) || defaultEmoji]
+  const words = message.substr(0, index).split(' ')
+  text.textContent = words.pop()
+  previousText.textContent = words.pop()
+},delay);
+</script>
+
+<script id="jsbin-source-html" type="text/html"><!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Talking Face</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet" />
+  <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.4"><\/script>
+</head>
+<body>
+  <h1><img class="emoji" id="emojiIcon" /></h1>
+  <h3 id="previousText"></h3>
+  <h2 id="text"></h2>
+</body>
+</html></script>
+
+<script id="jsbin-source-css" type="text/css">* {
+  text-align: center;
+  margin: 0px; 
+}
+@media screen and (max-width: 360px) {
+  h1 {
+    font-size: 70px;
+  }
+  .emoji {
+    width: 70px;
+  }
+  h2 {
+    font-size: 40px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 361px) {
+  .emoji {
+    width: 120px;
+  }
+  h1 {
+    font-size: 120px;
+  }
+  h2 {
+    font-size: 60px;
+  }
+  h3 {
+    font-size: 30px;
+  }
+}
+h2, h3 {
+  font-family: 'Gloria Hallelujah', cursive;
+}</script>
+
+<script id="jsbin-source-javascript" type="text/javascript">
+
+const delay = 200
+
+const message =  prompt("Enter a statement","Some dummies won\'t know what to write so i would help them....");
+
+  
+
+const emojiMap = {
+  "😮": ["o", "e"],
+  "😐": ["b", "p", "m"],
+  "🙂": ["c", "g", "j", "k", "n", "r", "s", "t", "v", "x", "z", "sh"],
+  "😲": ["d", "l", "th"],
+  "😯": ["q", "u", "w", "y"],
+  "😀": ["a", "i"],
+  "😦": []
+}
+const defaultEmoji = "😐"
+const emojiCode = {}
+const emojis = Object.keys(emojiMap);
+const start = Date.now()
+emojis.forEach(emoji => emojiCode[emoji] = twemoji.parse(emoji,{
+  folder: 'svg',
+  ext: '.svg'
+}).slice('<img class="emoji" draggable="false" alt="😐" src="'.length, -3))
+console.log(emojiCode)
+function resolveCharacter(index) {
+  const character = message.toLowerCase()[index]
+  const previousDouble = message.toLowerCase().substr(index - 1, index + 1)
+  const nextDouble = message.toLowerCase().substr(index, index + 2)
+  return emojis.find(e => emojiMap[e].indexOf(previousDouble) !== -1) || emojis.find(e => emojiMap[e].indexOf(nextDouble) !== -1) || emojis.find(e => emojiMap[e].indexOf(character) !== -1)
+}
+setInterval(_=>{
+  const index = Math.floor(( Date.now() - start )  / delay)%(message.length+1)
+  emojiIcon.src = emojiCode[resolveCharacter(index) || defaultEmoji]
+  const words = message.substr(0, index).split(' ')
+  text.textContent = words.pop()
+  previousText.textContent = words.pop()
+},delay);
+</script></body>
+</html>
